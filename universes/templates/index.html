@@ -1,0 +1,209 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marvel&DC</title>
+    <link rel="stylesheet" href="{% static 'css/style-principal.css' %}"/>
+    <link
+            rel="stylesheet"
+            href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}"
+
+    />
+
+</head>
+<!--jquery&dependencias bootstrap-->
+
+<!-- fin jquery&dependencias bootstrap-->
+
+<!--Inicio Body-->
+
+<body>
+<header>
+    <div class="bg-dark collapse" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">¿Que es?</h4>
+                    <p class="text-muted">
+                        Este es un proyecto realizado dentro de la materia
+                        <strong>contrusccion de software</strong> en la Universidad
+                        Santo Tomas seccional Tunja
+                    </p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contactame</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Sigueme en facebook</a></li>
+                        <li><a href="#" class="text-white">Este es mi correo</a></li>
+                    </ul>
+                    <h4 class="text-white">Ingresa</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}" class="text-white">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <img src="../static/img/marvelDc.jpeg" style="width: 100px"/>
+            </a>
+
+            <h1 class="text-light" style="margin-right: 49px">Marvel & DC</h1>
+
+            <button
+                    class="navbar-toggler collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarHeader"
+                    aria-controls="navbarHeader"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<!--Inicio contenido-->
+<main role="main" style="margin-top: 66px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'charactersMarvel' %}" style="text-decoration: none; color: #212529;">
+                        <div class="card-body">
+                            <p>
+                                <img src="../static/img/iconoMarvel.png" width="52px"/>
+                            </p>
+                            <p>
+                            <h4>Ver personajes de marvel</h4>
+                            </p>
+                            <p class="card-text">
+                                En esta seccion podras ver los personajes de marvel que hay
+                                disponibles en este momento.
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'charactersDC' %}" style="text-decoration: none; color: #212529;">
+                        <div class="card-body">
+                            <p>
+
+                                <img src="../static/img/iconobatman.png" width="52px"/>
+
+                            </p>
+                            <p>
+                            <h4>Ver personajes de DC</h4>
+                            </p>
+                            <p class="card-text">
+                                En esta seccion podras ver los personajes de DC que hay disponibles
+                                en este momento
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'count' %}" style="text-decoration: none; color: #212529;">
+                        <div class="card-body">
+                            <p>
+
+                                <img src="../static/img/icono.png" width="52px">
+
+                            </p>
+                            <p>
+                            <h4>Ver total de personajes</h4>
+                            </p>
+
+                            <p class="card-text">
+                                En esta seccion podras ver el total de personajes marvel y de DC que
+                                hay en este momento
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'search' %}" style="text-decoration: none; color: #212529;">
+                        <div class="card-body">
+                            <p>
+
+                                <img src="../static/img/search.png" width="52px">
+
+                            </p>
+                            <p>
+                            <h4>Buscar personajes</h4>
+                            </p>
+                            <p class="card-text">
+                                En esta seccion podras buscar a tus personajes favoritos sin importar cual sea el mundo
+                                al que pertenezca !
+
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'list' %}" style="text-decoration: none; color: #212529;">
+                        <div class="card-body">
+                            <p>
+
+                                <img src="../static/img/list.png" width="52px">
+
+                            </p>
+                            <p>
+                            <h4>Listar todos los personajes</h4>
+                            </p>
+                            <p class="card-text">
+                                En esta seccion puedes ver todos los personajes tanto de
+                                marvel como de DC
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="text-muted p-footer">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Henry Esteban Cardenas Aleman <strong>©</strong> 2021</p>
+    </div>
+</footer>
+
+<!--jquery&dependencias bootstrap-->
+<script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+></script>
+<script
+        src="{% static 'bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js' %}"
+
+></script>
+<!-- fin jquery&dependencias bootstrap-->
+</body>
+
+<!--Fin Body-->
+</html>

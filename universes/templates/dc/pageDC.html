@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DC</title>
+    <link rel="stylesheet" href="{% static 'css/style-principal.css' %}"/>
+    <link
+            rel="stylesheet"
+            href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}"
+
+    />
+    <script src="https://kit.fontawesome.com/70781f61cc.js" crossorigin="anonymous"></script>
+
+</head>
+
+<!--Inicio Body-->
+<script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+></script>
+<body>
+<header>
+    <div class="bg-dark collapse" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">¿Que es?</h4>
+                    <p class="text-muted">
+                        Este es un proyecto realizado dentro de la materia
+                        <strong>contrusccion de software</strong> en la Universidad
+                        Santo Tomas seccional Tunja
+                    </p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contactame</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Sigueme en facebook</a></li>
+                        <li><a href="#" class="text-white">Este es mi correo</a></li>
+                    </ul>
+                    <h4 class="text-white">Ingresa</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}" class="text-white">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <a href="{% url 'main' %}" class="navbar-brand d-flex align-items-center">
+                <img src="../../static/img/marvelDc.jpeg" style="width: 100px"/>
+            </a>
+
+            <h1 class="text-light" style="margin-right: 49px">Marvel & DC</h1>
+
+            <button
+                    class="navbar-toggler collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarHeader"
+                    aria-controls="navbarHeader"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<!--Inicio contenido-->
+{% if messages %}
+    {% for message in messages %}
+        <div id="message" class="alert alert-success alert-dismissible fade show" role="alert"
+             style="text-align: center; ">
+            <strong>Hey {{ user.get_username|upper }}!</strong> todo ha salido bien !!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+<main role="main" style="margin-top: 66px">
+    <div class="container">
+        <div>
+            <a href="{% url 'main' %}">
+                <button type="button" class="btn btn-danger">Atras</button>
+            </a>
+            <h1 style="margin-top: -48px;text-align: center;margin-left: 42px;">Personajes de DC</h1>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="btn-group" style="margin-top: -63px;left: 64.6rem;">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    Opciones
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'saveCharacterDc' %}">Crear Personaje</a>
+                    <a class="dropdown-item" href="{% url 'savePowerDC' %}">Asignar Poderes</a>
+                    <a class="dropdown-item" href="{% url 'createPower' %}">Crear Poder</a>
+                    <a class="dropdown-item" href="{% url 'deleteP' %}">Poderes</a>
+
+                </div>
+            </div>
+        {% endif %}
+        <div class="container" style="text-align: center;padding: 0rem 1rem 3rem 0rem;">
+            {% for character in characterDC %}
+                <div class="content">
+                    <div class="card" style="width: 19rem;height: 42.3rem;">
+
+                        <img src="{{ character.image }}" class="card-img-top" title="{{ character.name }}"
+                             style="width: 18.88rem;height:21.3rem;">
+
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ character.name|upper }}</h5>
+                            {% for power in filter %}
+                                {% if power.characters.id == character.id %}
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'deletePowerCharacterDc' power.id %}">
+                                            <i class="fas fa-trash-alt" style="color: #ff3548"></i></a>
+
+                                    {% endif %}
+                                    <small><strong>{{ power.powers.name }}:{{ power.number }}|</strong></small>
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+
+                            <p class="card-text" style="height: 15rem;">{{ character.description }}</p>
+                        </div>
+                        <div class="card-body">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'deleteDC' character.id %}" class="btn btn-danger">Eliminar</a>
+
+                                <a href="{% url 'update' character.id %}" class="btn btn-success"
+                                   style="margin-left: 71px;">Actualizar</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+</main>
+
+<footer class="text-muted p-footer" style="margin-top: 77px;">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Henry Esteban Cardenas Aleman <strong>©</strong> 2021</p>
+    </div>
+</footer>
+
+<script
+        src="{% static 'bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js' %}"
+
+></script>
+
+</body>
+
+<!--Fin Body-->
+</html>
